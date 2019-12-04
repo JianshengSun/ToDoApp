@@ -8,9 +8,7 @@
 
 import Foundation
 import CoreData
-
-
-
+//CoreData Srack
 class CoreDataStack {
     var container: NSPersistentContainer{
         let container = NSPersistentContainer(name: "TODO")
@@ -19,7 +17,6 @@ class CoreDataStack {
                 print("Error: \(error!)")
                 return
             }
-            
         }
         return container
     }
