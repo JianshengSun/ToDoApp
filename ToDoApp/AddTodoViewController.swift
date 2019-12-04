@@ -12,8 +12,11 @@ import CoreData
 class AddTodoViewController: UIViewController {
     
     var managedContext: NSManagedObjectContext!
+    var todo: TODO?
 
-    @IBOutlet weak var textView: UITextField!
+    @IBOutlet weak var titletext: UITextField!
+    @IBOutlet weak var detailtext: UITextView!
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -25,7 +28,13 @@ class AddTodoViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboard(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
-        textView.becomeFirstResponder()
+        titletext.becomeFirstResponder()
+        
+        if let todo = todo {
+            titletext.text = todo.title
+            segmentedControl.selectedSegmentIndex = Int(todo.priotity)
+            detailtext.text = todo.detail
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -42,19 +51,29 @@ class AddTodoViewController: UIViewController {
     }
     
     @IBAction func SubmitBtn(_ sender: UIButton) {
-        guard let title = textView.text, !title.isEmpty else {
+        guard let title = titletext.text, !title.isEmpty else {
             return
         }
 
-        let todo = TODO(context: managedContext)
-        todo.title = title
-        todo.priotity = Int16(segmentedControl.selectedSegmentIndex)
-        todo.date = Date()
+        if let todo = self.todo {
+            todo.title = title
+            todo.priotity = Int16(segmentedControl.selectedSegmentIndex)
+            todo.detail = detailtext.text
+        } else {
+            let todo = TODO(context: managedContext)
+            todo.title = title
+            todo.priotity = Int16(segmentedControl.selectedSegmentIndex)
+            todo.date = Date()
+            todo.detail = detailtext.text
+            todo.done = false
+        }
+        
+        
+
         
         do {
             try managedContext.save()
-            dismiss(animated: true)
-            textView.resignFirstResponder()
+            dismissAndResign()
         } catch {
             print("Error saving todo: \(error)")
         }
@@ -63,12 +82,14 @@ class AddTodoViewController: UIViewController {
 
     }
     
-    @IBAction func DeleteBtn(_ sender: UIButton) {
+    
+    fileprivate func dismissAndResign() {
+        dismiss(animated: true)
+        titletext.resignFirstResponder()
     }
     
     @IBAction func CancelBtn(_ sender: UIButton) {
-        dismiss(animated: true)
-        textView.resignFirstResponder()
+        dismissAndResign()
         
     }
     
