@@ -74,7 +74,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="input here..." clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C7V-a5-cv9">
                                         <rect key="frame" x="0.0" y="20.5" width="303" height="238.5"/>
-                                        <nil key="textColor"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -166,7 +166,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.7741196586498813" green="0.98875711034609037" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.83922143922049375" green="0.96596121740532559" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="DSl-ce-XvI" firstAttribute="height" secondItem="rmZ-rD-n7W" secondAttribute="height" multiplier="0.4" id="NiY-mn-qZB"/>
                             <constraint firstItem="Div-1L-IaD" firstAttribute="leading" secondItem="FSL-bD-99x" secondAttribute="leading" constant="36" id="bZb-tk-XeA"/>
@@ -217,7 +217,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="OzL-MB-9z7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.5083582054012914" green="0.87596780040572386" blue="0.96620899438858032" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

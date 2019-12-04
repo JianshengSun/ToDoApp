@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class AddTodoViewController: UIViewController {
+    
+    var managedContext: NSManagedObjectContext!
 
     @IBOutlet weak var textView: UITextField!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -21,6 +24,8 @@ class AddTodoViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboard(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        textView.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
     
@@ -29,24 +34,32 @@ class AddTodoViewController: UIViewController {
             return
         }
         
-        //let keyboardHeight = keyboardReact.height
-        bottomConstraint.constant = keyboardReact.height + 16
+        bottomConstraint.constant = keyboardReact.height + 10
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-        
-        
-        
-
-        /*if notification.name == UIResponder.keyboardWillShowNotification ||  notification.name == UIResponder.keyboardWillChangeFrameNotification {
-            self.view.frame.origin.y = -keyboardReact.height
-        }else{
-            self.view.frame.origin.y = 0
-        }*/
 
     }
     
     @IBAction func SubmitBtn(_ sender: UIButton) {
+        guard let title = textView.text, !title.isEmpty else {
+            return
+        }
+        let todo = Todo(context: managedContext)
+        todo.title = title
+        todo.priotity = Int16(segmentedControl.selectedSegmentIndex)
+        todo.date = Date()
+        
+        do {
+            try managedContext.save()
+            dismiss(animated: true)
+            textView.resignFirstResponder()
+        } catch {
+            print("Error saving todo: \(error)")
+        }
+        
+
+
     }
     
     @IBAction func DeleteBtn(_ sender: UIButton) {
@@ -54,6 +67,7 @@ class AddTodoViewController: UIViewController {
     
     @IBAction func CancelBtn(_ sender: UIButton) {
         dismiss(animated: true)
+        textView.resignFirstResponder()
         
     }
     
