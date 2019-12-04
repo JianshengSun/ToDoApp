@@ -11,14 +11,14 @@ import CoreData
 
 class TodoTableViewController: UITableViewController {
     
-    var resultsController: NSFetchedResultsController<Todo>!
+    var resultsController: NSFetchedResultsController<TODO>!
     let coreDataStack = CoreDataStack()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //request
-        let request: NSFetchRequest<Todo> = Todo.fetchRequest()
+        let request: NSFetchRequest<TODO> = TODO.fetchRequest()
         let sortDescriptors = NSSortDescriptor(key: "date", ascending: true)
         
         //init
@@ -50,12 +50,12 @@ class TodoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return resultsController.sections?[section].objects?.count ?? 0
+        return resultsController.sections?[section].numberOfObjects ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath)
 
                 // Configure the cell...
         let todo = resultsController.object(at: indexPath)

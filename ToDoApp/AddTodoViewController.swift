@@ -45,7 +45,8 @@ class AddTodoViewController: UIViewController {
         guard let title = textView.text, !title.isEmpty else {
             return
         }
-        let todo = Todo(context: managedContext)
+
+        let todo = TODO(context: managedContext)
         todo.title = title
         todo.priotity = Int16(segmentedControl.selectedSegmentIndex)
         todo.date = Date()
