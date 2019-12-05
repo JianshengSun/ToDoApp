@@ -65,6 +65,9 @@ class TodoTableViewController: UITableViewController {
             cell.textLabel?.textColor = #colorLiteral(red: 0.7765, green: 0.7765, blue: 0.7765, alpha: 1) /* #c6c6c6 */
             cell.textLabel?.text = importancestar + todo.title!
         } else {
+            //bug fix(reset coloer, if not, add new task will still the gray color)
+            cell.backgroundColor = .white
+            cell.textLabel?.textColor = .black
             cell.textLabel?.text = importancestar + todo.title!
         }
         return cell
